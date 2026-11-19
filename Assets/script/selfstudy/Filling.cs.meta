@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 7c0d7ff50eb3ea14e9eae6c9759ce1b4
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - openQutabPrefab: {fileID: 1748666443406702633, guid: 1fe00e1da763d6e4c950f6f7f4912651, type: 3}
+  - closedQutabPrefab: {fileID: 8460506427079406056, guid: 502032237cc017b4aaebfd41df872bf7, type: 3}
+  - sourceDispenser: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
