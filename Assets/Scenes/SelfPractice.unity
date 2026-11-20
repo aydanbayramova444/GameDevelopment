@@ -1789,7 +1789,7 @@ MonoBehaviour:
   followSurface: 1
   maxTilt: 33.1
   cookPoints: []
-  cookTime: 5
+  cookTime: 10.05
   cookedQutabPrefab: {fileID: 3003861535283586089, guid: 9346fbbd8fa12e64e83668667bb1e8ca, type: 3}
   canBurn: 1
   burnTime: 8
