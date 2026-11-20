@@ -104,7 +104,18 @@ public class PreparationStation : MonoBehaviour
     public DoughStage Stage => WorkSlot != null ? WorkSlot.Stage : DoughStage.Raw;
     public float WorkTime => Stage == DoughStage.Raw ? flattenTime : closeTime;
     public float WorkPercent => WorkSlot != null ? WorkSlot.workProgress / WorkTime : 0f;
-    public string WorkName => Stage == DoughStage.Raw ? "flatten dough" : "close qutab";
+    public string WorkName
+    {
+        get
+        {
+            if (Stage == DoughStage.Raw) return "flatten dough";
+
+            // e.g. "close greens qutab"
+            string f = WorkSlot != null && WorkSlot.data != null
+                ? WorkSlot.data.fillingName : "";
+            return string.IsNullOrEmpty(f) ? "close qutab" : "close " + f + " qutab";
+        }
+    }
 
     // Is this a dough on the table that has nothing to do right now
     // (e.g. a closed qutab ready to be picked up)?

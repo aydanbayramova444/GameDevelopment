@@ -20,6 +20,7 @@ public class PlayerInteraction : MonoBehaviour
     private CookingStation cookingInSight;
     private DoughDispenser dispenserInSight;
     private MeatDispenser meatDispenserInSight;
+    private GreensDispenser greensDispenserInSight;
     private Plate plateInSight;
     private PlateDispenser plateDispenserInSight;
 
@@ -40,6 +41,7 @@ public class PlayerInteraction : MonoBehaviour
     void Update()
     {
         CheckForObject();
+        ShowKindInfo();
 
         if (waitForKeyRelease)
         {
@@ -74,6 +76,35 @@ public class PlayerInteraction : MonoBehaviour
         }
     }
 
+    // Shows what kind of qutab you hold or look at, e.g. "In hand: Closed greens qutab (raw)"
+    void ShowKindInfo()
+    {
+        if (interactionText == null) return;
+
+        const string tag = "In hand: ";
+        if (interactionText.text.Contains(tag)) return;
+
+        // Holding a qutab (plates already show their dish name)
+        Dough held = heldObject != null && HeldPlate == null
+            ? heldObject.GetComponentInParent<Dough>()
+            : null;
+
+        if (held != null && held.stage != DoughStage.Raw)
+        {
+            interactionText.text += "\n<size=75%>" + tag + held.KindName + "</size>";
+            return;
+        }
+
+        // Looking at a loose qutab (on the table or the floor) with empty hands
+        if (heldObject == null && objectInSight != null &&
+            interactionText.text == "Press E to pick up")
+        {
+            Dough seen = objectInSight.GetComponentInParent<Dough>();
+            if (seen != null)
+                interactionText.text = seen.KindName + " - Press E to pick up";
+        }
+    }
+
     bool CanWorkOnStation()
     {
         // Looking straight at a finished dough on the table? Then pick it up instead
@@ -92,6 +123,7 @@ public class PlayerInteraction : MonoBehaviour
         cookingInSight = null;
         dispenserInSight = null;
         meatDispenserInSight = null;
+        greensDispenserInSight = null;
         plateInSight = null;
         plateDispenserInSight = null;
 
@@ -159,6 +191,13 @@ public class PlayerInteraction : MonoBehaviour
             {
                 meatDispenserInSight =
                     hit.collider.GetComponentInParent<MeatDispenser>();
+            }
+
+            // Detect greens dispenser
+            if (greensDispenserInSight == null)
+            {
+                greensDispenserInSight =
+                    hit.collider.GetComponentInParent<GreensDispenser>();
             }
 
             // Detect plate
@@ -232,7 +271,7 @@ public class PlayerInteraction : MonoBehaviour
                 Filling filling =
                     heldObject.GetComponentInParent<Filling>();
                 interactionText.text =
-                    "Press E to add " + filling.fillingName;
+                    "Press E to add " + filling.DisplayName;
                 return;
             }
 
@@ -339,9 +378,16 @@ public class PlayerInteraction : MonoBehaviour
         else if (heldObject == null && meatDispenserInSight != null)
         {
             if (meatDispenserInSight.CanDispense)
-                interactionText.text = "Press E to get meat";
+                interactionText.text = "Press E to get " + meatDispenserInSight.itemName;
             else
-                interactionText.text = "Meat dispenser is empty";
+                interactionText.text = "Wait, " + meatDispenserInSight.itemName + " is already out";
+        }
+        else if (heldObject == null && greensDispenserInSight != null)
+        {
+            if (greensDispenserInSight.CanDispense)
+                interactionText.text = "Press E to get greens (goyerti)";
+            else
+                interactionText.text = "Greens dispenser is empty";
         }
         else if (heldObject == null && plateDispenserInSight != null)
         {
@@ -491,6 +537,21 @@ public class PlayerInteraction : MonoBehaviour
             return;
         }
 
+        // Get greens from greens dispenser
+        if (greensDispenserInSight != null &&
+            greensDispenserInSight.CanDispense)
+        {
+            GameObject newGreens =
+                greensDispenserInSight.Dispense();
+
+            if (newGreens != null)
+            {
+                PickUpObject(newGreens);
+            }
+
+            return;
+        }
+
         // Get plate from plate dispenser
         if (plateDispenserInSight != null &&
             plateDispenserInSight.CanDispense)
@@ -572,6 +633,15 @@ public class PlayerInteraction : MonoBehaviour
         {
             filling.sourceDispenser.NotifyMeatTaken();
             filling.sourceDispenser = null;
+        }
+
+        // Notify greens dispenser that its greens have been collected
+        Greens greens =
+            obj.GetComponentInChildren<Greens>(true);
+
+        if (greens != null)
+        {
+            greens.OnPickedUp();
         }
 
         heldObject = obj;

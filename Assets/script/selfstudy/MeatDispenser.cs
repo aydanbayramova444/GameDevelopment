@@ -1,9 +1,14 @@
 using UnityEngine;
 
+// Gives out a filling (meat, greens, ...). Works for any filling:
+// just set the prefab and the name shown to the player.
 public class MeatDispenser : MonoBehaviour
 {
     public GameObject meatPrefab;
     public Transform meatSpawnPoint;
+
+    // Shown to the player: "Press E to get <itemName>"
+    public string itemName = "meat";
 
     private bool hasMeat = false;
 
@@ -13,13 +18,13 @@ public class MeatDispenser : MonoBehaviour
     {
         if (hasMeat)
         {
-            Debug.Log("The meat dispenser is empty!");
+            Debug.Log("The " + itemName + " dispenser is empty!");
             return null;
         }
 
         if (meatPrefab == null || meatSpawnPoint == null)
         {
-            Debug.LogError("Assign the Meat Prefab and Spawn Point!");
+            Debug.LogError("Assign the Prefab and Spawn Point on " + name + "!");
             return null;
         }
 
@@ -38,7 +43,7 @@ public class MeatDispenser : MonoBehaviour
 
         hasMeat = true;
 
-        Debug.Log("New meat created!");
+        Debug.Log("New " + itemName + " created!");
 
         return newMeat;
     }
@@ -46,6 +51,6 @@ public class MeatDispenser : MonoBehaviour
     public void NotifyMeatTaken()
     {
         hasMeat = false;
-        Debug.Log("Meat dispenser is ready for more meat!");
+        Debug.Log(itemName + " dispenser is ready again!");
     }
 }

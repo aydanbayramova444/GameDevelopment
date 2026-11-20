@@ -1,0 +1,120 @@
+newmtl Dough
+Ka 0 0 0
+Kd 0.940 0.820 0.600
+Ks 0.05 0.05 0.05
+Ns 10
+d 1
+illum 2
+
+newmtl Meat
+Ka 0 0 0
+Kd 0.550 0.220 0.150
+Ks 0.05 0.05 0.05
+Ns 10
+d 1
+illum 2
+
+newmtl Onion
+Ka 0 0 0
+Kd 0.960 0.940 0.860
+Ks 0.05 0.05 0.05
+Ns 10
+d 1
+illum 2
+
+newmtl Bowl
+Ka 0 0 0
+Kd 0.600 0.380 0.220
+Ks 0.05 0.05 0.05
+Ns 10
+d 1
+illum 2
+
+newmtl Cooked
+Ka 0 0 0
+Kd 0.860 0.640 0.360
+Ks 0.05 0.05 0.05
+Ns 10
+d 1
+illum 2
+
+newmtl Toasted
+Ka 0 0 0
+Kd 0.620 0.380 0.170
+Ks 0.05 0.05 0.05
+Ns 10
+d 1
+illum 2
+
+newmtl Iron
+Ka 0 0 0
+Kd 0.300 0.300 0.320
+Ks 0.05 0.05 0.05
+Ns 10
+d 1
+illum 2
+
+newmtl Wood
+Ka 0 0 0
+Kd 0.420 0.270 0.150
+Ks 0.05 0.05 0.05
+Ns 10
+d 1
+illum 2
+
+newmtl Ember
+Ka 0 0 0
+Kd 1.000 0.480 0.100
+Ks 0.05 0.05 0.05
+Ns 10
+d 1
+illum 2
+
+newmtl Coal
+Ka 0 0 0
+Kd 0.130 0.110 0.100
+Ks 0.05 0.05 0.05
+Ns 10
+d 1
+illum 2
+
+newmtl Herb
+Ka 0 0 0
+Kd 0.300 0.600 0.200
+Ks 0.05 0.05 0.05
+Ns 10
+d 1
+illum 2
+
+newmtl HerbDark
+Ka 0 0 0
+Kd 0.150 0.400 0.130
+Ks 0.05 0.05 0.05
+Ns 10
+d 1
+illum 2
+
+newmtl HerbLight
+Ka 0 0 0
+Kd 0.600 0.800 0.320
+Ks 0.05 0.05 0.05
+Ns 10
+d 1
+illum 2
+
+newmtl Burnt
+Ka 0 0 0
+Kd 0.300 0.170 0.080
+Ks 0.05 0.05 0.05
+Ns 10
+d 1
+illum 2
+
+newmtl Char
+Ka 0 0 0
+Kd 0.090 0.070 0.060
+Ks 0.05 0.05 0.05
+Ns 10
+d 1
+illum 2
+

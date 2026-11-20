@@ -160,26 +160,32 @@ public class CookingStation : MonoBehaviour
             Slot s = Focused;
             if (s == null) return "";
 
+            // What kind of qutab, e.g. "Greens qutab"
+            string what = s.data != null && !string.IsNullOrEmpty(s.data.fillingName)
+                ? char.ToUpper(s.data.fillingName[0]) + s.data.fillingName.Substring(1) + " qutab"
+                : "Qutab";
+
             string text;
             switch (s.Stage)
             {
                 case DoughStage.Closed:
-                    text = "Cooking... " + Mathf.RoundToInt(s.timer / cookTime * 100f) + "%";
+                    text = what + " - cooking... " +
+                           Mathf.RoundToInt(s.timer / cookTime * 100f) + "%";
                     break;
 
                 case DoughStage.Cooked:
                     text = canBurn
-                        ? "Cooked! Press E to take (burns in " +
+                        ? what + " cooked! Press E to take (burns in " +
                           Mathf.CeilToInt(burnTime - s.timer) + "s)"
-                        : "Cooked! Press E to take";
+                        : what + " cooked! Press E to take";
                     break;
 
                 case DoughStage.Burnt:
-                    text = "Burnt! Press E to take";
+                    text = what + " burnt! Press E to take";
                     break;
 
                 default:
-                    text = "Press E to take";
+                    text = what + " - Press E to take";
                     break;
             }
 

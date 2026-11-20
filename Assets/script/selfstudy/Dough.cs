@@ -32,6 +32,29 @@ public class Dough : MonoBehaviour
         }
     }
 
+    // Name for ANY stage, shown on screen, e.g. "Open greens qutab",
+    // "Closed meat qutab (raw)", "Burnt greens qutab"
+    public string KindName
+    {
+        get
+        {
+            string f = string.IsNullOrEmpty(fillingName) ? "" : fillingName + " ";
+            string text;
+
+            switch (stage)
+            {
+                case DoughStage.Raw:    text = "dough"; break;
+                case DoughStage.Flat:   text = "flat dough"; break;
+                case DoughStage.Filled: text = "open " + f + "qutab"; break;
+                case DoughStage.Closed: text = "closed " + f + "qutab (raw)"; break;
+                case DoughStage.Burnt:  text = "burnt " + f + "qutab"; break;
+                default:                text = f + "qutab"; break;
+            }
+
+            return char.ToUpper(text[0]) + text.Substring(1);
+        }
+    }
+
     // Kept so older code that uses "isFlat" still works
     public bool isFlat
     {
